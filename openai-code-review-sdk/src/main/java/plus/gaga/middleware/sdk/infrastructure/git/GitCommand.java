@@ -68,6 +68,7 @@ public class GitCommand {
     }
 
     public String commitAndPush(String recommend) throws Exception {
+        logger.info(githubReviewLogUri);
         Git git = Git.cloneRepository()
                 .setURI(githubReviewLogUri + ".git")
                 .setDirectory(new File("repo"))
