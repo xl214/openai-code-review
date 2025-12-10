@@ -2,7 +2,7 @@ package plus.gaga.middleware.sdk.test;
 
 import com.alibaba.fastjson2.JSON;
 import org.junit.Test;
-import plus.gaga.middleware.sdk.domain.model.ChatCompletionSyncResponse;
+import plus.gaga.middleware.sdk.infrastructure.openai.dto.ChatCompletionSyncResponseDTO;
 import plus.gaga.middleware.sdk.types.utils.BearerTokenUtils;
 import plus.gaga.middleware.sdk.types.utils.WXAccessTokenUtils;
 
@@ -19,14 +19,14 @@ import java.util.Scanner;
 public class ApiTest {
 
     public static void main(String[] args) {
-        String apiKeySecret = "2111599b2af846f89e624b4bdbdeff97.PQKQ746Kv1KahUEw";
+        String apiKeySecret = "c78fbacd3e10118ad5649d7a54a3a163.UunYDBxpzeClvSKZ";
         String token = BearerTokenUtils.getToken(apiKeySecret);
         System.out.println(token);
     }
 
     @Test
     public void test_http() throws IOException {
-        String apiKeySecret = "2111599b2af846f89e624b4bdbdeff97.PQKQ746Kv1KahUEw";
+        String apiKeySecret = "c78fbacd3e10118ad5649d7a54a3a163.UunYDBxpzeClvSKZ";
         String token = BearerTokenUtils.getToken(apiKeySecret);
 
         URL url = new URL("https://open.bigmodel.cn/api/paas/v4/chat/completions");
@@ -51,7 +51,7 @@ public class ApiTest {
                 + "}";
 
 
-        try(OutputStream os = connection.getOutputStream()){
+        try (OutputStream os = connection.getOutputStream()) {
             byte[] input = jsonInpuString.getBytes(StandardCharsets.UTF_8);
             os.write(input);
         }
@@ -63,25 +63,26 @@ public class ApiTest {
         String inputLine;
 
         StringBuilder content = new StringBuilder();
-        while ((inputLine = in.readLine()) != null){
+        while ((inputLine = in.readLine()) != null) {
             content.append(inputLine);
         }
 
         in.close();
         connection.disconnect();
 
-        ChatCompletionSyncResponse response = JSON.parseObject(content.toString(), ChatCompletionSyncResponse.class);
+        ChatCompletionSyncResponseDTO response = JSON.parseObject(content.toString(), ChatCompletionSyncResponseDTO.class);
         System.out.println(response.getChoices().get(0).getMessage().getContent());
 
     }
+
     @Test
     public void test_wx() {
         String accessToken = WXAccessTokenUtils.getAccessToken();
         System.out.println(accessToken);
 
         Message message = new Message();
-        message.put("project","sdk测试");
-        message.put("review","新加功能");
+        message.put("project","big-market");
+        message.put("review","feat: 新加功能");
 
         String url = String.format("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s", accessToken);
         sendPostRequest(url, JSON.toJSONString(message));
@@ -111,9 +112,9 @@ public class ApiTest {
     }
 
     public static class Message {
-        private String touser = "oq46u2Kva_aR6_lqp8CZIsyfrOTc";
-        private String template_id = "3dBaoyLkZQvNJz-kkKF9AdcJHaQMF-2UBcjRXfcuEaI";
-        private String url = "https://github.com/xl214/openai-code-review-log";
+        private String touser = "or0Ab6ivwmypESVp_bYuk92T6SvU";
+        private String template_id = "mKhGjV7UAV7Se9_byoPrgRlNfgJac8ZAfLnK8hyGmTQ";
+        private String url = "https://github.com/fuzhengwei/openai-code-review-log/blob/master/2024-07-27/Wzpxr6j1JY9k.md";
         private Map<String, Map<String, String>> data = new HashMap<>();
 
         public void put(String key, String value) {
@@ -156,6 +157,5 @@ public class ApiTest {
             this.data = data;
         }
     }
-
 
 }
