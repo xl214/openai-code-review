@@ -80,8 +80,8 @@ public class ApiTest {
         System.out.println(accessToken);
 
         Message message = new Message();
-        message.put("project","big-market");
-        message.put("review","feat: 新加功能");
+        message.put("project","sdk测试");
+        message.put("review","新加功能");
 
         String url = String.format("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s", accessToken);
         sendPostRequest(url, JSON.toJSONString(message));
@@ -113,7 +113,7 @@ public class ApiTest {
     public static class Message {
         private String touser = "oq46u2Kva_aR6_lqp8CZIsyfrOTc";
         private String template_id = "3dBaoyLkZQvNJz-kkKF9AdcJHaQMF-2UBcjRXfcuEaI";
-        private String url = "https://github.com/lix214/openai-code-review-log";
+        private String url = "https://github.com/xl214/openai-code-review-log";
         private Map<String, Map<String, String>> data = new HashMap<>();
 
         public void put(String key, String value) {
